@@ -10,7 +10,7 @@ This is the official repository of paper:
 
 <!-- ![FrontPage](images/IROSRALFrontPage.jpg) -->
 <p align="center">
-  <img width="600" height="281" src=images/IROSRALFrontPage.jpg>
+  <img width="834" height="547" src=images/IROSRALFrontPage.jpg>
 </p>
 
 If you use this repository, please cite:
@@ -32,7 +32,9 @@ If you have any questions or comments, please contact [Dimity Miller](mailto:d24
 
 This code was developed with Python 3.8 on Ubuntu 20.04. 
 
-### Clone and Install Detectron2 Repository
+Our paper is implemented for Faster R-CNN and RetinaNet object detectors from the [detectron2 repository](https://github.com/facebookresearch/detectron2). We recommend you also use detectron2 repository, but also include a general script for identifying false negative mechanisms independent of the detector implementation (more details in the **Testing** section).
+
+**Clone and Install Detectron2 Repository**
 1. Clone [detectron2](https://github.com/facebookresearch/detectron2) inside the fn_mechanisms folder.
 ```bash
 cd fn_mechanisms
@@ -45,4 +47,4 @@ python demo.py --config-file ../configs/COCO-Detection/faster_rcnn_R_50_FPN_3x.y
 ```
 
 ## Acknowledgement
-This code builds upon the [detectron2 repository](https://github.com/facebookresearch/detectron2). Please also acknowledge detectron2 if you use this repository.
+This code builds upon the [detectron2 repository](https://github.com/facebookresearch/detectron2). Please also acknowledge detectron2 if you use their repository.
