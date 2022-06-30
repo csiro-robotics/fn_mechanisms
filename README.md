@@ -8,6 +8,11 @@ This is the official repository of paper:
 
 *Dimity Miller, Peyman Moghadam, Mark Cox, Matt Wildie, Raja Jurdak*
 
+<!-- ![FrontPage](images/IROSRALFrontPage.jpg) -->
+<p align="center">
+  <img width="600" height="281" src=images/IROSRALFrontPage.jpg>
+</p>
+
 If you use this repository, please cite:
 
 ```text
@@ -25,7 +30,19 @@ If you have any questions or comments, please contact [Dimity Miller](mailto:d24
 
 ## Installation
 
-This code was developed with Python 3.7 on Ubuntu 20.04. It requires a GPU. 
+This code was developed with Python 3.8 on Ubuntu 20.04. 
+
+### Clone and Install Detectron2 Repository
+1. Clone [detectron2](https://github.com/facebookresearch/detectron2) inside the fn_mechanisms folder.
+```bash
+cd fn_mechanisms
+git clone https://github.com/facebookresearch/detectron2.git
+```
+2. Follow the [detectron2 instructions for installation](https://detectron2.readthedocs.io/en/latest/tutorials/install.html). We use pytorch 1.12 with cuda 11.6, and build detectron2 from source. However, you should be able to use other versions of pytorch and cuda as long as they meet the listed detectron2 requirements.
+3. You should be able to run the following command with no errors. If you have any errors, this is an issue with your detectron2 installation and you should debug or raise an issue with the detectron2 repository.
+```bash
+python demo.py --config-file ../configs/COCO-Detection/faster_rcnn_R_50_FPN_3x.yaml --input images/test_im.jpg --opts MODEL.WEIGHTS https://dl.fbaipublicfiles.com/detectron2/COCO-Detection/faster_rcnn_R_50_FPN_3x/137849458/model_final_280758.pkl
+```
 
 ## Acknowledgement
 This code builds upon the [detectron2 repository](https://github.com/facebookresearch/detectron2). Please also acknowledge detectron2 if you use this repository.
