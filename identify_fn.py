@@ -13,7 +13,7 @@ from detectron2.data.detection_utils import read_image
 from detectron2.utils.logger import setup_logger
 
 from detectron2_predictor import Detectron2VisualizationDemo
-from utils import gt_to_image_format, format_for_alg
+from utils import gt_to_image_format, format_for_alg, draw_fn_mechanism
 from fn_identifier_tools import find_fn_objects, identify_fn_mechanism
 
 
@@ -153,6 +153,17 @@ if __name__ == "__main__":
 
 		all_fn_mechanisms += im_fn_mechanisms
 
+		if args.visFN and len(fn_objects) != 0:
+			cv2.namedWindow('Visualised False Negatives', cv2.WINDOW_NORMAL)
+			for fn_idx, fn_object in enumerate(fn_objects):
+				fn_vis, mech_vis = draw_fn_mechanism(detType, cfg, img, fn_object, im_Results, im_fn_mechanisms[fn_idx], COCO_CLASSES)
+				
+				total_im = cv2.hconcat([fn_vis, mech_vis])
+				cv2.imshow('Visualised False Negatives', total_im)
+				if cv2.waitKey(0) == 27:
+					cv2.destroyAllWindows() #Esc to quit
+					exit()
+
 	all_fn_mechanisms = np.array(all_fn_mechanisms)
 
 
@@ -161,11 +172,11 @@ if __name__ == "__main__":
 	print('Testing with:')
 	print(f'    Config: {args.config_file}')
 	print(f'    Weights: {args.opts[1]}')
-	print(f'	   Image folder: {args.input}')
+	print(f'	Image folder: {args.input}')
 	print(f'There were {totalErrors} false negatives.')
 	for fT, mech in enumerate(all_fn_mechanisms):
 		numErrors = np.sum(all_fn_mechanisms == fT)
-		print(f'    {mechanism_names[fT]} False Negative Mechanism: {100.*numErrors/totalErrors}% of all false negatives')
+		print(f'    {mechanism_names[fT]} False Negative Mechanism: {100.*numErrors/totalFN}% of all false negatives')
 				
 
 		

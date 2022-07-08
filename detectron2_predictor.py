@@ -216,14 +216,11 @@ class Detectron2VisualizationDemo(object):
 			predictions_final['score_dists'] = all_scores
 			predictions_final['pred_inds'] = [pred_inds] #the proposals that survive NMS
 
-		if vis:
-			image_orig = image_orig[:, :, ::-1]
-			visualizer = Visualizer(image_orig, self.metadata, instance_mode=self.instance_mode)
-			if "instances" in predictions_final:
-				instances = predictions_final["instances"].to(self.cpu_device)
-				vis_output = visualizer.draw_instance_predictions(predictions=instances)
-			else:
-				vis_output = None
+		image_orig = image_orig[:, :, ::-1]
+		visualizer = Visualizer(image_orig, self.metadata, instance_mode=self.instance_mode)
+		if "instances" in predictions_final:
+			instances = predictions_final["instances"].to(self.cpu_device)
+			vis_output = visualizer.draw_instance_predictions(predictions=instances)
 		else:
 			vis_output = None
 
