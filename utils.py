@@ -45,6 +45,26 @@ def gt_to_image_format(gt_dict, class_list):
 	
 	return image_dict
 
+def format_for_alg(prediction_dict, dType = 'FRCNN'):
+	results = {}
+
+	if len(prediction_dict['instances']) != 0:
+		results['output_scores'] = prediction_dict['instances'].scores.cpu().detach()
+		results['output_classes'] =  prediction_dict['instances'].pred_classes.cpu().detach()
+		results['output_boxes'] =  prediction_dict['instances'].pred_boxes.tensor.cpu().detach()
+
+	results['box_regressed'] = prediction_dict['reg_box']
+	results['box_proposal'] = prediction_dict['prop_box']
+	results['nms_inds'] = prediction_dict['pred_inds'][0]
+
+	if dType == 'FRCNN':
+		results['logits'] = prediction_dict['logits']
+	else:
+		results['score_dists'] = prediction_dict['score_dists']
+
+	return results
+
+
 def draw_fn_mechanism(detType, cfg, image, fn_object, im_dict, fn_mech, class_list, iou_thresh = 0.5, score_thresh = 0.3):
 	image = image[:, :, ::-1]
 
@@ -203,7 +223,6 @@ def draw_mechanism_classifier(image, metadata, bbox, label, box_colors, mech_typ
 
 	output = visualizer.draw_text(lbl, (0, 0), color = 'w', horizontal_alignment = 'left').get_image()[:, :, ::-1]
 
-
 	return output
 
 def draw_fn(image, metadata, fn_object, class_list):
@@ -216,22 +235,3 @@ def draw_fn(image, metadata, fn_object, class_list):
 	output = visualizer.draw_text('Ground Truth of False Negative Object', (0, 0), color = 'w', horizontal_alignment = 'left').get_image()[:, :, ::-1]
 
 	return output
-
-def format_for_alg(prediction_dict, dType = 'FRCNN'):
-	results = {}
-
-	if len(prediction_dict['instances']) != 0:
-		results['output_scores'] = prediction_dict['instances'].scores.cpu().detach()
-		results['output_classes'] =  prediction_dict['instances'].pred_classes.cpu().detach()
-		results['output_boxes'] =  prediction_dict['instances'].pred_boxes.tensor.cpu().detach()
-
-	results['box_regressed'] = prediction_dict['reg_box']
-	results['box_proposal'] = prediction_dict['prop_box']
-	results['nms_inds'] = prediction_dict['pred_inds'][0]
-
-	if dType == 'FRCNN':
-		results['logits'] = prediction_dict['logits']
-	else:
-		results['score_dists'] = prediction_dict['score_dists']
-
-	return results

@@ -9,7 +9,13 @@ import torch.nn.functional as F
 def bbox_iou(gtBox, predBoxes, epsilon=1e-5):
 	'''
 	Credit to Ronny Restrepo -- http://ronny.rest/tutorials/module/localization_001/iou/
-	TO DO -- DM Come back
+	Inputs:
+		gtBox (Tensor) -- Tensor of [x1, y1, x2, y2] describing ground-truth bounding box
+		predBoxes (Tensor) -- nx4 Tensor for n predicted bounding boxes, with each row in format [x1, y1, x2, y2]
+	Outputs:
+		iou (Tensor) -- n Tensor of float values describing IoU between gtBox and n predBoxes
+
+	Description: Calculates the intersection over union between gtBox and all predBoxes.
 	'''
 
 	gtBoxes = gtBox.repeat(len(predBoxes), 1)
@@ -39,8 +45,17 @@ def bbox_iou(gtBox, predBoxes, epsilon=1e-5):
 
 def find_fn_objects(gt_dict, pred_dict, iou_thresh = 0.5):
 	'''
-	TO DO -- DM Come back
+	Inputs:
+		gt_dict (dict) -- dictionary describing gt objects, with keys 'box', 'cls', 'area'. Each key has a list with corresponding information for each gt object described.
+		pred_dict (dict) -- dictionary describing predictions, with keys 'output_boxes', 'output_scores', and 'output_classes'. Each key has a list of corresponding information for each prediction.
+		iou_thresh (float) -- minimum IoU between a ground truth object and prediction for association to occur
+	Outputs:
+		fn_objects (list) -- a list of objects not detected by the predictions. Each object is described by [[x1, y1, x2, y2], class, area]
+
+	Description: Given ground-truth objects and detector predictions, it returns information for false negative objects -- objects undetected by the predictions.
+	This occurs when there is no prediction with the correct classification and an IoU overlap above iou_thresh
 	'''
+
 	fn_objects = []
 	
 	#no predictions from the detector, all objects are false negatives.
@@ -102,7 +117,21 @@ def find_fn_objects(gt_dict, pred_dict, iou_thresh = 0.5):
 
 def identify_fn_mechanism(fn_object, pred_dict, detType = 'FRCNN', iou_thresh = 0.5, score_thresh = 0.3):
 	'''
-	TO DO -- DM Come back
+	Inputs:
+		fn_object (list) -- a list of objects not detected by the predictions. Each object is described by [[x1, y1, x2, y2], class, area]
+		pred_dict (dict) -- dictionary of information needed for false negative mechanism identification, including keys:
+				'box_proposal' (Tensor) -- a tensor of the proposal bounding boxes in format [x1, y1, x2, y2]
+				'box_regressed' (Tensor) -- a tensor of the regressed proposal bounding boxes in format [x1, y1, x2, y2]
+				if Faster R-CNN: 'logits' (Tensor) -- a tensor of the logit distributions for each proposal (prior to softmax)
+				if RetinaNet: 'score_dists' (Tensor) -- a tensor of the sigmoid score distributions for each proposal and each training class
+				'nms_inds' (Tensor) -- a tensor of the predictions indices that survive NMS (predictions are proposals after regressed and classified) 
+		detType (str) -- 'FRCNN' for Faster R-CNN and 'RetNet' for RetinaNet
+		iou_thresh (float) -- minimum IoU between a ground truth object and prediction for association to occur
+		score_thresh (float) -- minimum classification score for a detection to be considered valid
+	Outputs:
+		(int) -- describes the category of false negative mechanism. 0 = proposal process, 1 = regressor, 2 = interclass classification, 3 = background classification, 4 = classifier calibration
+
+	Description: An implementation of Algorithm 1 in the 'What's in the Black Box? The False Negative Mechanisms Inside Object Detectors' paper.
 	'''
 	gtB, gtC, gtA = fn_object[0], fn_object[1], fn_object[2]
 

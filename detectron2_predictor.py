@@ -156,7 +156,7 @@ class Detectron2VisualizationDemo(object):
 
 			pred_logits, pred_anchor_deltas = self.predictor.model._transpose_dense_predictions((logits, bbox_reg), [self.predictor.model.num_classes, 4]) #process results into correct format
 	
-			image_size = images.image_sizes[0] #check
+			image_size = images.image_sizes[0]
 			scores_per_image = [x[0].sigmoid_().detach() for x in pred_logits]
 			deltas_per_image = [x[0] for x in pred_anchor_deltas]
 
