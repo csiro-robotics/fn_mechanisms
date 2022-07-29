@@ -20,16 +20,8 @@ IN THIS CLAUSE, CSIRO INCLUDES ANY THIRD PARTY AUTHOR OR OWNER OF ANY PART OF TH
 Third Party Components
 The following third party components are distributed with the Software.  You agree to comply with the licence terms for these components as part of accessing the Software.  Other third party software may also be identified in separate files distributed with the Software.
 ___________________________________________________________________
-PyTorch  https://pytorch.org/
-This software is licensed under a BSD-style license.
-___________________________________________________________________
-___________________________________________________________________
-
-___________________________________________________________________
-___________________________________________________________________
-TorchSparse https://github.com/mit-han-lab/torchsparse
-
-This software is licensed under the MIT License.
+Detectron2  https://github.com/facebookresearch/detectron2
+This software is licensed under a Apache-2.0 license.
 ___________________________________________________________________
 
   
