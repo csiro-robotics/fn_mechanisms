@@ -30,6 +30,17 @@ If you use this repository, please cite:
 
 If you have any questions or comments, please contact [Dimity Miller](mailto:d24.miller@qut.edu.au).
 
+## Table of Contents
+
+  - [Installation](#installation)
+    * [Clone and Install Detectron2 Repository](#clone-and-install-detectron2-repository)
+  - [Data Setup](#data-setup)
+  - [Pre-trained Models](#pre-trained-models)
+  - [How to use](#how-to-use)
+    * [Identifying False Negative Mechanisms for Detectron2-based Detectors](#identifying-false-negative-mechanisms-for-detectron2-based-detectors)
+    * [Visualising False Negative Mechanisms](#visualising-false-negative-mechanisms)
+  - [Acknowledgement](#acknowledgement)
+
 ## Installation
 
 This code was developed with Python 3.8 on Ubuntu 20.04. 
