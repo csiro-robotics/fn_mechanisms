@@ -137,17 +137,54 @@ Running the two commands above should generate the following results:
 
 ### Visualising False Negative Mechanisms
 
-When running the identify_fn.py script, you can set --visFN True to visualise false negative mechanisms. This section explains what is being visualised with some examples.
+When running the identify_fn.py script, you can set --visFN True to visualise false negative mechanisms. This section explains what is being visualised with some examples. These examples are from the COCO dataset when testing with the Detectron2-trained Faster RCNN (R50 FPN 3x).
 
 **Proposal Process Mechanism**
 
+On the left, a red box and label show the false negative object (e.g. boat). On the right, there is a visualisation of the detector proposals, where warmer-toned boxes show a greater IoU with the FN object and cooler-toned boxes show a lower IoU with the FN object. The maximum IoU of any proposal with the FN object is also printed on the image (e.g. Maximum IoU: 0.461). To de-clutter the image, we only visualise the proposals that have an IoU greater than 0 with the FN object.
+
+<!-- ![Proposal Process Mechanism Visualisation](images/examples/proposal_process.png) -->
+<p align="center">
+  <img width="1200" height="350" src=images/examples/proposal_process.png>
+</p>
+
 **Regressor Mechanism**
+
+On the left, a red box and label show the false negative object (e.g. tennis racket). On the right, there is a visualisation of the detector's regressed bounding boxes, where warmer-toned boxes show a greater IoU with the FN object and cooler-toned boxes show a lower IoU with the FN object. The maximum IoU of any proposal with the FN object is also printed on the image (e.g. Maximum IoU: 0.395). To de-clutter the image, we only visualise the regressed boxes that have an IoU greater than 0 with the FN object.
+
+<!-- ![Regressor Mechanism Visualisation](images/examples/regressor.png) -->
+<p align="center">
+  <img width="728" height="548" src=images/examples/regressor.png>
+</p>
 
 **Interclass Classification Mechanism**
 
+On the left, a red box and label show the false negative object (e.g. elephant). On the right, we draw the most confident interclass misclassification that had localised the FN object. In this case, we show a regressed object proposal that had localised the elephant with an IoU of 0.63, but had been misclassified as a surfboard with confidence 0.43.
+
+<!-- ![Interclass Classification Mechanism Visualisation](images/examples/interclass_classification.png) -->
+<p align="center">
+  <img width="1044" height="352" src=images/examples/interclass_classification.png>
+</p>
+
+
 **Background Classification Mechanism**
 
+On the left, a red box and label show the false negative object (e.g. chair). On the right, we draw the regressed proposal that had best localised the object, but was misclassified as background. In this case, we show a regressed object proposal that had localised the chair with an IoU of 0.91, but had been misclassified as background with confidence 0.91. Notably, RetinaNet does not have a specific background class, and will not show an associated background confidence score.
+
+<!-- ![Background Classification Mechanism Visualisation](images/examples/background_classification.png) -->
+<p align="center">
+  <img width="978" height="371" src=images/examples/background_classification.png>
+</p>
+
+
 **Classifier Calibration Mechanism**
+
+On the left, a red box and label show the false negative object (e.g. book). On the right, we draw the confident but poorly-localised detection output by the detector (in red), and the well-localised detection suppressed by NMS (in green). In this case, the red detection predicted by the detector has a high confidence of 0.79, but only has an IoU of 0.39 with the FN object. We also draw a green detection which was less confident (0.57), but had localised the object with an IoU of 0.53. Due to the lower confidence, the green detection was suppressed by the red detection during NMS. 
+
+<!-- ![Classifier Calibration Mechanism Visualisation](images/examples/classifier_calibration.png) -->
+<p align="center">
+  <img width="921" height="309" src=images/examples/classifier_calibration.png>
+</p>
 
 
 ## Acknowledgement
