@@ -169,14 +169,18 @@ if __name__ == "__main__":
 
 	mechanism_names = ['Proposal Process', 'Regressor', 'Interclass Classification', 'Background Classification', 'Classifier Calibration']
 	totalFN = len(all_fn_mechanisms)
+	print('###########################################################################################################')
+	print('###########################################################################################################')
 	print('Testing with:')
 	print(f'    Config: {args.config_file}')
 	print(f'    Weights: {args.opts[1]}')
 	print(f'	Image folder: {args.input}')
-	print(f'There were {totalErrors} false negatives.')
-	for fT, mech in enumerate(all_fn_mechanisms):
+	print(f'There were {totalFN} false negatives.')
+	for fT, mech in enumerate(mechanism_names):
 		numErrors = np.sum(all_fn_mechanisms == fT)
-		print(f'    {mechanism_names[fT]} False Negative Mechanism: {100.*numErrors/totalFN}% of all false negatives')
+		print(f'    {mech} False Negative Mechanism: {round(100.*numErrors/totalFN, 2)}% of all false negatives')
+	print('###########################################################################################################')
+	print('###########################################################################################################')
 				
 
 		
