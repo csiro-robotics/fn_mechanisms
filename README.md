@@ -150,7 +150,7 @@ Running the two commands above should generate the following results:
 
 ### Visualising False Negative Mechanisms
 
-When running the identify_fn.py script, you can set --visFN True to visualise false negative mechanisms. This section explains what is being visualised with some examples. These examples are from the COCO dataset when testing with the Detectron2-trained Faster RCNN (R50 FPN 3x).
+When running the identify_fn.py script, you can set `--visFN True` to visualise false negative mechanisms. This section explains what is being visualised with some examples. These examples are from the COCO dataset when testing with the Detectron2 COCO-trained Faster RCNN (R50 FPN 3x).
 
 **Proposal Process Mechanism**
 
