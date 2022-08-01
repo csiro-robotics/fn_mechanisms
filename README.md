@@ -1,6 +1,6 @@
 # What's in the Black Box? The False Negative Mechanisms Inside Object Detectors
 
-This is the official repository of paper:
+This is the official repository of IEEE Robotics and Automation Letters 2022 paper:
 
 **[What's in the Black Box? The False Negative Mechanisms Inside Object Detectors](https://arxiv.org/abs/2203.07662)**
 
@@ -25,10 +25,6 @@ If you use this repository, please cite:
   doi={10.1109/LRA.2022.3187831}
 }
 ```
-
-**Contact**
-
-If you have any questions or comments, please contact [Dimity Miller](mailto:d24.miller@qut.edu.au).
 
 ## Table of Contents
 
@@ -199,6 +195,9 @@ On the left, a red box and label show the false negative object (e.g. book). On 
   <img width="921" height="309" src=images/examples/classifier_calibration.png>
 </p>
 
+## Contact
+
+If you have any questions or comments, please contact [Dimity Miller](mailto:d24.miller@qut.edu.au).
 
 ## Acknowledgement
 This code builds upon the [detectron2 repository](https://github.com/facebookresearch/detectron2). Please also acknowledge detectron2 if you use their repository.
