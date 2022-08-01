@@ -45,7 +45,7 @@ If you have any questions or comments, please contact [Dimity Miller](mailto:d24
 
 This code was developed with Python 3.8 on Ubuntu 20.04. 
 
-Our paper is implemented for Faster R-CNN and RetinaNet object detectors from the [detectron2 repository](https://github.com/facebookresearch/detectron2). We recommend you also use detectron2 repository, but also include a general script for identifying false negative mechanisms independent of the detector implementation (more details in the **Testing** section).
+Our paper is implemented for Faster R-CNN and RetinaNet object detectors from the [detectron2 repository](https://github.com/facebookresearch/detectron2). 
 
 **Clone and Install Detectron2 Repository**
 1. Clone [detectron2](https://github.com/facebookresearch/detectron2) inside the fn_mechanisms folder.
