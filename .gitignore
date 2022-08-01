@@ -1,1 +1,4 @@
 detectron2
+data/*
+__pycache__/
+
