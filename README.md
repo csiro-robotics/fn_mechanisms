@@ -1,7 +1,5 @@
 # What's in the Black Box? The False Negative Mechanisms Inside Object Detectors
 
-**This paper has very recently been accepted to IEEE Robotics and Automation Letters, and accepted for presentation at IROS 2022. All code will be online within the next week (by July 8).**
-
 This is the official repository of paper:
 
 **[What's in the Black Box? The False Negative Mechanisms Inside Object Detectors](https://arxiv.org/abs/2203.00807)**
@@ -71,6 +69,7 @@ The scripts are designed to be input folders that contain the images to be teste
 We use pre-trained models (trained on COCO) from the [Detectron2 Model Zoo](https://github.com/facebookresearch/detectron2/blob/main/MODEL_ZOO.md). 
 
 ## How to use
+### Identifying False Negative Mechanisms for Detectron2-based Detectors
 ```bash
 python identify_fn.py --input image_folder --gt annotation_file --opts MODEL.WEIGHTS weights_file
 ```
@@ -99,6 +98,56 @@ After following the instructions above for downloading the COCO val2017 data:
 ```bash
 python identify_fn.py --input data/coco/val2017/ --gt data/coco/annotations/instances_val2017.json --config-file detectron2/configs/COCO-Detection/retinanet_R_50_FPN_3x.yaml --opts MODEL.WEIGHTS https://dl.fbaipublicfiles.com/detectron2/COCO-Detection/retinanet_R_50_FPN_3x/190397829/model_final_5bd44e.pkl
 ```
+**Results**
+
+Running the two commands above should generate the following results:
+<table>
+  <tr>
+    <td colspan = '2'></td>
+    <td align = 'center' colspan = '5'>False Negative Mechanisms</td>
+  </tr>
+  <tr>
+    <td align = 'center'>Detector</td>
+    <td align = 'center'># of False Negatives</td>
+    <td align = 'center'>Proposal Process</td>
+    <td align = 'center'>Regressor</td>
+    <td align = 'center'>Interclass Classification</td>
+    <td align = 'center'>Background Classification</td>
+    <td align = 'center'>Classifier Calibration</td>
+  </tr>
+  <tr>
+    <td align = 'center'>Faster R-CNN (R50 FPN 3x)</td>
+    <td align = 'center'>10464</td>
+    <td align = 'center'>20.01%</td>
+    <td align = 'center'>2.48%</td>
+    <td align = 'center'>12.19%</td>
+    <td align = 'center'>58.22%</td>
+    <td align = 'center'>7.10%</td>
+  </tr>
+    <tr>
+    <td align = 'center'>RetinaNet (R50 FPN 3x)</td>
+    <td align = 'center'>11869</td>
+    <td align = 'center'>5.87%</td>
+    <td align = 'center'>0.07%</td>
+    <td align = 'center'>9.52%</td>
+    <td align = 'center'>77.86%</td>
+    <td align = 'center'>6.68%</td>
+  </tr>
+</table>
+
+### Visualising False Negative Mechanisms
+
+When running the identify_fn.py script, you can set --visFN True to visualise false negative mechanisms. This section explains what is being visualised with some examples.
+
+**Proposal Process Mechanism**
+
+**Regressor Mechanism**
+
+**Interclass Classification Mechanism**
+
+**Background Classification Mechanism**
+
+**Classifier Calibration Mechanism**
 
 
 ## Acknowledgement
