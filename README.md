@@ -61,6 +61,7 @@ python demo.py --config-file ../configs/COCO-Detection/faster_rcnn_R_50_FPN_3x.y
 COCO data can be downloaded from [here](https://cocodataset.org/#download). The following commands can be used to quickly download the COCO val2017 images and annotations for evaluating. 
 ```bash
 mkdir data
+cd data
 mkdir coco
 cd coco
 wget http://images.cocodataset.org/zips/val2017.zip
